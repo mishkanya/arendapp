@@ -1,0 +1,6 @@
+@ArendApp_HostAddress = http://localhost:5151
+
+GET {{ArendApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
