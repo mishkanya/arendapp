@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.Api", "ArendApp\ArendApp.Api.csproj", "{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArendApp.Api", "ArendApp\ArendApp.Api.csproj", "{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.App.Android", "ArendApp.App\ArendApp.App.Android\ArendApp.App.Android.csproj", "{3D52171A-5F8A-475E-89AB-F23B7484569D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.App.iOS", "ArendApp.App\ArendApp.App.iOS\ArendApp.App.iOS.csproj", "{116900A2-C64E-4C97-9848-FD3292176928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.App", "ArendApp.App\ArendApp.App\ArendApp.App.csproj", "{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArendApp.App", "ArendApp.App\ArendApp.App\ArendApp.App.csproj", "{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.Models", "ArendApp.Models\ArendApp.Models.csproj", "{F06B807F-F254-41C8-A56C-4FFC96C945C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,18 @@ Global
 		{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}.Release|iPhone.Build.0 = Release|Any CPU
 		{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|iPhone.Build.0 = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{F06B807F-F254-41C8-A56C-4FFC96C945C0}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
