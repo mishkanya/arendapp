@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArendApp.App.Views.ProductsListPage" Title="Каталог">
+    
+    <ListView x:Name="MyListView"
+            ItemsSource="{Binding Items}"
+            ItemTapped="Handle_ItemTapped"
+            CachingStrategy="RecycleElement" HasUnevenRows="False" RowHeight="450" >
+
+        <ListView.ItemTemplate >
+            <DataTemplate >
+
+                <ViewCell>
+                    <Frame CornerRadius="10" Padding="0" Margin="10" BackgroundColor="{StaticResource Primary}"  HasShadow="True">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <!-- img -->
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <Image Source="{Binding MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
+                            <Grid Grid.Row="1" Margin="5">
+
+                                <Grid.RowDefinitions>
+                                    <!-- name -->
+                                    <RowDefinition Height="auto"/>
+                                    <!-- price -->
+                                    <RowDefinition Height="auto"/>
+                                    <!-- description -->
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="0"/>
+                                <Label TextColor="DarkSlateGray"  HorizontalOptions="Start"  FontAttributes="Bold"  Background="Aqua"  Grid.Column="0" Grid.Row="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <FormattedString.Spans>
+                                                <Span Text="От "/>
+                                                <Span Text="{Binding MonthPrice}"/>
+                                                <Span Text="₽"/>
+                                            </FormattedString.Spans>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="{Binding Description}" FontSize="Caption" Grid.Column="0" Grid.Row="2"/>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+</ContentPage>

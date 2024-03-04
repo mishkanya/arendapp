@@ -15,6 +15,7 @@ namespace ArendApp.App
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+            NavigationPage.SetHasNavigationBar(this, true);
         }
 
         protected override void OnStart()
