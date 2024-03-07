@@ -12,6 +12,6 @@ namespace ArendApp.Models
         public string Password { get; set; }
         public bool Confirmed { get; set; }
         public bool IsAdmin { get; set; }
-        public string Token { get; set; }
+        public string Token { get; set; } = Guid.NewGuid().ToString();
     }
 }

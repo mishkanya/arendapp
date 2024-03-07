@@ -1,6 +1,9 @@
 using ArendApp;
+using ArendApp.Api.Extensions;
 using ArendApp.Api.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-if(string.IsNullOrWhiteSpace(connection))
+if (string.IsNullOrWhiteSpace(connection))
 {
 
     string workingDirectory = Environment.CurrentDirectory;
@@ -31,7 +34,11 @@ builder.Services.AddScoped<CodeSender>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.OperationFilter<SwaggerHeaderCustomizer>();
+});
 
 var app = builder.Build();
 
@@ -42,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 
 app.UseAuthorization();
 

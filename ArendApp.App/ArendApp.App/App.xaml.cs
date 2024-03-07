@@ -14,6 +14,8 @@ namespace ArendApp.App
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<ApiService>();
+
             MainPage = new AppShell();
             NavigationPage.SetHasNavigationBar(this, true);
         }

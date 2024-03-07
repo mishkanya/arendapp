@@ -1,5 +1,7 @@
 ﻿using ArendApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
 
 namespace ArendApp.Api.Services
 {
@@ -15,17 +17,33 @@ namespace ArendApp.Api.Services
             var code = Guid.NewGuid();
             var sendedCode = new SendedCode() { Code = code.ToString(), UserId = user.Id };
 
-            await SendEmail(user.Email, code);
 
             await _applicationDbContext.SendedCodes.AddAsync(sendedCode);
             await _applicationDbContext.SaveChangesAsync();
+            await SendEmail(sendedCode, user.Email);
             return sendedCode;
         }
 
-        private async Task SendEmail(string email, Guid code)
+        private async Task SendEmail(SendedCode code, string email)
         {
-            await Task.Run(() => { });
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("confirmcode@mail.ru");
+            mailMessage.To.Add(email);
+            mailMessage.Subject = "Код подтверждения";
+            mailMessage.Body = $"Код подтверждения учетной записи {code.Code}\n" +
+                $"Время действия до {code.Limit}";
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Host = "smtp.mail.ru";
+            smtpClient.Port = 587;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential("confirmcode@mail.ru", "6TXZskMxi4jDyCMCyp8G");
+            smtpClient.EnableSsl = true;
+
+            smtpClient.Send(mailMessage);
         }
+
+        
 
         public async Task<bool> CodeVerification(int userId, string code)
         {

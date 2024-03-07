@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArendApp.Models;
 using ArendApp.Api.Services;
+using ArendApp.Api.Extensions;
 
 namespace ArendApp.Api.Controllers
 {
@@ -22,9 +23,8 @@ namespace ArendApp.Api.Controllers
             _context = context;
             _codeSender = codeSender;
         }
-
         // GET: api/Users
-        [HeaderValidator()]
+        //[HeaderValidator()]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersData()
         {
@@ -45,7 +45,7 @@ namespace ArendApp.Api.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        [HeaderValidator()]
+        [HeaderValidatorAttribute()]
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.UsersData.FindAsync(id);
@@ -61,7 +61,7 @@ namespace ArendApp.Api.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [HeaderValidator()]
+        [HeaderValidatorAttribute()]
         public async Task<IActionResult> PutUser(int id, User user)
         {
             if (id != user.Id)
@@ -92,19 +92,31 @@ namespace ArendApp.Api.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(UserRequest userRequest)
         {
-            _context.UsersData.Add(user);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var user = new User() { 
+                    Name = userRequest.Name,
+                    Email = userRequest.Email,
+                    Password = userRequest.Password,
+                };
+                _context.UsersData.Add(user);
+                await _context.SaveChangesAsync();
 
-            await _codeSender.SendCode(user);
+                await _codeSender.SendCode(user);
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+                return user;
+            }
+            catch(Exception ex) 
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        [HeaderValidator()]
+        [HeaderValidatorAttribute()]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.UsersData.FindAsync(id);
@@ -119,17 +131,31 @@ namespace ArendApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}/{code}")]
+        [HttpGet("Confirm")]
         [HeaderValidator()]
-        public async Task<ActionResult<User>> ConfirmEmail(int id, int code)
+        public async Task<ActionResult<User>> ConfirmEmail(string code)
         {
-            var user = await _context.UsersData.FindAsync(id);
+            var user = await this.GetUserAsync();
+
+            var codeData = await _context.SendedCodes.FirstOrDefaultAsync(t => t.Code == code);
 
             if (user == null)
-            {
                 return NotFound();
+            if (codeData == null)
+                return NotFound();
+            if (codeData.UserId != user.Id)
+                return NotFound(); 
+            if(codeData.Limit < DateTime.Now)
+            {
+                _context.SendedCodes.Remove(codeData);
+                return BadRequest("Код просрочен");
+            }
+            else
+            {
+                user.Confirmed = true;
             }
 
+            await _context.SaveChangesAsync();
             return user;
         }
 

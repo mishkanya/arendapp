@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArendApp.Models;
 using ArendApp.Api.Services;
+using ArendApp.Api.Extensions;
 
 namespace ArendApp.Api.Controllers
 {
@@ -41,7 +42,7 @@ namespace ArendApp.Api.Controllers
 
             return product;
         }
-        [HeaderValidator(true)]
+        [HeaderValidatorAttribute(true)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
@@ -71,7 +72,7 @@ namespace ArendApp.Api.Controllers
             return NoContent();
         }
 
-        [HeaderValidator(true)]
+        [HeaderValidatorAttribute(true)]
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
@@ -82,7 +83,7 @@ namespace ArendApp.Api.Controllers
         }
 
         // DELETE: api/Products/5
-        [HeaderValidator(true)]
+        [HeaderValidatorAttribute(true)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
