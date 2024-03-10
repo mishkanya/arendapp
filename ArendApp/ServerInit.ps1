@@ -25,7 +25,7 @@
 #}
 
 
-#https://api.telegra.ph/editPage/ServerUrl-03-07?access_token=98815802fe8b87c09b320647fee62577449b44e35cb6b3474599c5854f86&title=ServerUrl&content=[{"tag":"p","children":["https://f2be-80-80-195-19.ngrok-free.app"]}]&return_content=true
+# https://api.telegra.ph/editPage/ServerUrl-03-07?access_token=98815802fe8b87c09b320647fee62577449b44e35cb6b3474599c5854f86&title=ServerUrl&content=[{"tag":"p","children":["https://be37-80-80-194-146.ngrok-free.app /"]}]&return_content=true
 
 
 

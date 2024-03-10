@@ -14,7 +14,7 @@ namespace ArendApp.Api.Services
         }
         public async Task<SendedCode> SendCode(User user)
         {
-            var code = Guid.NewGuid();
+            var code = new Random().Next(100000,999999); // Guid.NewGuid();
             var sendedCode = new SendedCode() { Code = code.ToString(), UserId = user.Id };
 
 

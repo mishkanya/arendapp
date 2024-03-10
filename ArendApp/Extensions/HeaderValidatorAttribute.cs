@@ -36,7 +36,7 @@ namespace ArendApp.Api.Extensions
             }
 
             if (_adminOnly)
-                if (dbContext.UsersData.FirstOrDefault(t => t.Token.ToLower() == token.ToString().ToLower()) == null)
+                if (dbContext.UsersData.FirstOrDefault(t => t.Token.ToLower() == token.ToString().ToLower())?.IsAdmin == false)
                     context.Result = new ForbidResult("User is not admin");
         }
 

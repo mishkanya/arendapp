@@ -4,11 +4,31 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="ArendApp.App.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             x:Class="ArendApp.App.Views.LoginPage" NavigationPage.HasBackButton="True" NavigationPage.HasNavigationBar="True">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Frame IsVisible="{Binding ViewRegisterFrame}" VerticalOptions="End" Grid.Row="0">
+                <StackLayout x:Name="FieldsLogin" Padding="10,0,10,0" VerticalOptions="Center">
+                    <Entry Placeholder="Email" Keyboard="Email" IsPassword="False" Text="{Binding LoginEmail}" />
+                    <Entry Placeholder="Password" IsPassword="True"  Text="{Binding LoginPassword}" />
+                    <Button Text="Войти" Command="{Binding LoginCommand}"/>
+                </StackLayout>
+            </Frame>
+            <Frame IsVisible="{Binding ViewLoginFrame}" VerticalOptions="End" Grid.Row="0">
+                <StackLayout x:Name="FieldsRegister" Padding="10,0,10,0" VerticalOptions="Center">
+                    <Entry Placeholder="Email" Keyboard="Email" IsPassword="False" Text="{Binding RegisterEmail}" />
+                    <Entry Placeholder="Password"  IsPassword="True" Text="{Binding RegisterPassword}"/>
+                    <Entry Placeholder="Password confirm" IsPassword="True" Text="{Binding RegisterPasswordRepeat}"/>
+                    <Button Text="Зарегистрироваться" Command="{Binding RegisterCommand}"/>
+                </StackLayout>
+            </Frame>
+            <Button Grid.Row="1" IsVisible="{Binding ViewLoginFrame}" VerticalOptions="Start" Text="Login" Command="{Binding SwitchFrame}"/>
+            <Button Grid.Row="1" IsVisible="{Binding ViewRegisterFrame}" VerticalOptions="Start" Text="Register" Command="{Binding SwitchFrame}"/>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

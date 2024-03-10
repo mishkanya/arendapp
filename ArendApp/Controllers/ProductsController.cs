@@ -42,7 +42,7 @@ namespace ArendApp.Api.Controllers
 
             return product;
         }
-        [HeaderValidatorAttribute(true)]
+        [HeaderValidator(true)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {

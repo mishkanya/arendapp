@@ -31,7 +31,7 @@ namespace ArendApp.Api.Controllers
             return await _context.UsersData.ToListAsync();
         }
 
-        [HttpPost("/login")]
+        [HttpPost("Login")]
         public async Task<ActionResult<User>> Login(User user)
         {
             var dbUser = await _context.UsersData.FirstOrDefaultAsync(t => t.Email == user.Email && t.Password == user.Password);
@@ -131,7 +131,7 @@ namespace ArendApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("Confirm")]
+        [HttpGet("Confirm/{code}")]
         [HeaderValidator()]
         public async Task<ActionResult<User>> ConfirmEmail(string code)
         {
@@ -156,6 +156,18 @@ namespace ArendApp.Api.Controllers
             }
 
             await _context.SaveChangesAsync();
+            return user;
+        }
+        [HttpGet("GetByToken")]
+        [HeaderValidator()]
+        public async Task<ActionResult<User>> GetByToken()
+        {
+            var user = await this.GetUserAsync();
+
+
+            if (user == null)
+                return NotFound();
+
             return user;
         }
 

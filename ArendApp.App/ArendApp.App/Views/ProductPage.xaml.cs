@@ -1,4 +1,5 @@
 ﻿using ArendApp.App.Models;
+using ArendApp.App.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,11 +18,12 @@ namespace ArendApp.App.Views
     {
         public Product Product { get; set; }
         public ObservableCollection<string> Images { get; set; }
+
+        public IDataStorage DataStorage => DependencyService.Get<IDataStorage>();
         public ProductPage(Product product)
         {
             InitializeComponent();
             Product = product;
-
 
             List<string> images = new List<string>() { product.MainImage };
             if(string.IsNullOrWhiteSpace(product.SecondImages) == false )

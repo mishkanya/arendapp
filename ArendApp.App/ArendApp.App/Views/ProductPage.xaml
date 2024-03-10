@@ -83,7 +83,6 @@
                         <Label TextColor="Black" Text="adsa"/>
                         <Label TextColor="Black" Text="adsa"/>
                         <Label TextColor="Black" Text="adsa"/>
-                        <Label TextColor="Black" Text="adsa"/>
                     </StackLayout>
                 </ScrollView>
 

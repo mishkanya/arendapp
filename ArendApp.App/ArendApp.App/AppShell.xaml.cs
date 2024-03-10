@@ -12,6 +12,8 @@ namespace ArendApp.App
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(ProductsListPage), typeof(ProductsListPage));
+            Routing.RegisterRoute(nameof(UserProfilePage), typeof(UserProfilePage));
+            Routing.RegisterRoute(nameof(BasketPage), typeof(BasketPage));
         }
 
     }

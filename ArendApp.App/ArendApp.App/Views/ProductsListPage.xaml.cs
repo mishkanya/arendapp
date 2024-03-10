@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
@@ -19,23 +20,36 @@ namespace ArendApp.App.Views
     {
         public ObservableCollection<Product> Items { get; set; }
         public IApiService ApiService => DependencyService.Get<IApiService>();
+        public IDataStorage DataStorage => DependencyService.Get<IDataStorage>();
+
+
+        public ICommand RefreshingCommand { get;}
+        public bool IsRefreshing { 
+            get => _isRefreshing; 
+            set 
+            {
+                _isRefreshing = value;
+                OnPropertyChanged("IsRefreshing");
+            } }
+        private bool _isRefreshing;
+
 
         public ProductsListPage()
         {
             InitializeComponent();
             Items = new ObservableCollection<Product>();
-            
-            MyListView.ItemsSource = Items;
-            Task.Run(LoadList);
+            RefreshingCommand = new Command( async() =>
+            {
+                var t = await ApiService.GetProducts();
+                if (t.StatusCode != System.Net.HttpStatusCode.OK)
+                    return;
+                Items.Clear();
+                t.Data.ForEach((ptoduct) => Items.Add(ptoduct));
+                IsRefreshing = false;
+            });
+            RefreshingCommand.Execute(null);
 
-        }
-        private async void LoadList()
-        {
-            Items.Clear();
-
-            var t = await ApiService.GetProducts();
-            //t.ForEach(x => Items.Add(x));
-            t.AsParallel().ForAll((ptoduct) => Items.Add(ptoduct));
+            BindingContext = this;
         }
 
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
