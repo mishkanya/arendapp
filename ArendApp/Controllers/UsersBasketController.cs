@@ -61,6 +61,9 @@ namespace ArendApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<UserBasket>> PostHistory(UserBasket usersBasket)
         {
+            if (_context.UsersBasket.Any(t => t.UsedId == usersBasket.UsedId && t.ProductId == usersBasket.ProductId))
+                return BadRequest();
+
             _context.UsersBasket.Add(usersBasket);
             await _context.SaveChangesAsync();
 

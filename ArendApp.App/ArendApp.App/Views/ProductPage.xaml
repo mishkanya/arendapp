@@ -90,7 +90,7 @@
                         <BoxView Margin="5" Color="LightGray" CornerRadius="2" HeightRequest="2"/>
 
                         <Grid>
-                            <Button Text="В корзину" Grid.Column="0"/>
+                            <Button Text="В корзину" Command="{Binding AddToBasketCommand}" Grid.Column="0"/>
                             <Button Text="Купить сейчас" Grid.Column="1"/>
                         </Grid>
                     </StackLayout>

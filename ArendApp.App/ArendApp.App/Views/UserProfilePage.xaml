@@ -1,10 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArendApp.App.Views.UserProfilePage">
+             x:Class="ArendApp.App.Views.UserProfilePage"
+             xmlns:converters="clr-namespace:ArendApp.App.Extensions;assembly=ArendApp.App"
+             Title="Профиль">
+    <Shell.TitleView>
+        <Grid>
+            <Button Text="перестать изменять" IsVisible="{Binding MayChangeUser}"  Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
+            <Button Text="Изменить" IsVisible="{Binding MayChangeUser, Converter={StaticResource inverseBoolConverter}}" Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
+            <Button Text="Выйти" Command="{Binding LogoutCommand}" Grid.Column="3" HorizontalOptions="EndAndExpand" />
+        </Grid>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Выйти" Command="{Binding LogoutCommand}"/>
+            <Label Text="Email:"/>
+            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Email, Mode=TwoWay}"/>
+            <Label Text="Name:"/>
+            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Name, Mode=TwoWay}"/>
+            <Label Text="Password:"/>
+            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Password, Mode=TwoWay}"/>
+            <Grid IsVisible="{Binding MayChangeUser}" >
+                <Button Command="{Binding ResetUserDataCommand}" Text="Сбросить изменения" Grid.Column="0"/>
+                <Button Command="{Binding SaveUserDataCommand}" Text="Сохранить" Grid.Column="1"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

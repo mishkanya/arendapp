@@ -1,8 +1,10 @@
 ﻿
 
+using System;
+
 namespace ArendApp.App.Models
 {
-    public class User
+    public class User: ICloneable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -11,5 +13,7 @@ namespace ArendApp.App.Models
         public bool Confirmed { get; set; }
         public bool IsAdmin { get; set; }
         public string Token { get; set; }
+
+        public object Clone() => new User { Id = Id, Name = Name, Email = Email, Password = Password, Confirmed = Confirmed, IsAdmin = IsAdmin, Token = Token };
     }
 }

@@ -21,10 +21,11 @@ namespace ArendApp.App.Services
         Task<ServerResponse<User>> RegisterUser(User user);
         Task<ServerResponse<User>> LoginUser(User user);
         Task<ServerResponse<User>> ConfirmCode(string code);
+        Task<ServerResponse<UserBasket>> AddToBasket(UserBasket userBasket);
         Task<ServerResponse<User>> GetUser();
         Task<ServerResponse<List<UserBasket>>> GetBasket();
         Task<ServerResponse<List<Product>>> GetProducts(IEnumerable<int> id);
-        Task<ServerResponse<object>> DeleteFromBasket(string Id);
+        Task<ServerResponse<object>> DeleteFromBasket(string Id); Task<ServerResponse<object>> ChangeUser(User user);
     }
 
     class ApiRequestParams
@@ -85,6 +86,32 @@ namespace ArendApp.App.Services
         private static string _serverUrl;
         #endregion
 
+
+
+        public async Task<ServerResponse<object>> ChangeUser(User user)
+        {
+            int Id = user.Id;
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Put,
+                Body = user,
+                Route = $"api/Users/{Id}",
+            };
+            var response = await GetRequest<object>(apiRequestParams);
+            if (response.IsSuccessful)
+                await this.GetUser();
+            return response;
+        }
+        public async Task<ServerResponse<UserBasket>> AddToBasket(UserBasket userBasket)
+        {
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Post,
+                Body = userBasket,
+                Route = $"api/UsersBasket",
+            };
+            return await GetRequest<UserBasket>(apiRequestParams);
+        }
 
         public async Task<ServerResponse<object>> DeleteFromBasket(string Id)
         {
@@ -216,7 +243,7 @@ namespace ArendApp.App.Services
                     var content = await response.Content.ReadAsStringAsync();
                     responseData.Message = content;
 
-                    if (content != null || string.IsNullOrEmpty(content) == false)
+                    if (content != null && string.IsNullOrEmpty(content) == false)
                     {
                         var data = JsonSerializer.Deserialize<T>(content, jsonSerializerOptions);
                         responseData.Data = data;

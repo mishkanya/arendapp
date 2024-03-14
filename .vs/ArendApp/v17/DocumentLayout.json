@@ -3,32 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp\\controllers\\historiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|solutionrelative:arendapp\\controllers\\historiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\services\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\basketpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\basketpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\productpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\productpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\productpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
+      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\productpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp\\controllers\\usersbasketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|solutionrelative:arendapp\\controllers\\usersbasketcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\basketpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\basketpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\basketpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}",
       "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\basketpage.xaml||{2974C621-7033-421A-B08A-11D27B021D1B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\views\\productslistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\views\\productslistpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|solutionrelative:arendapp\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,11 +34,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApiService.cs",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Services\\ApiService.cs*",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Services\\ApiService.cs*",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAnwGgAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T15:35:10.808Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml.cs",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml.cs",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACAAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T15:33:39.26Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml*",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\ProductPage.xaml*",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAAAFgAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-14T14:44:49.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BasketPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAcwD0AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T14:40:34.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BasketPage.xaml",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHoAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-03-14T14:40:17.784Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -52,84 +113,9 @@
               "RelativeDocumentMoniker": "ArendApp\\Controllers\\UsersBasketController.cs",
               "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Controllers\\UsersBasketController.cs",
               "RelativeToolTip": "ArendApp\\Controllers\\UsersBasketController.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAAAswFwAAAAVAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAMwDsAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-13T15:55:03.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BasketPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
-              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
-              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAhwCcAAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-13T14:53:43.381Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BasketPage.xaml",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
-              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
-              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\BasketPage.xaml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADUAAAAkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-03-11T14:09:56.133Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ProductsListPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductsListPage.xaml.cs",
-              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Views\\ProductsListPage.xaml.cs",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Views\\ProductsListPage.xaml.cs",
-              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Views\\ProductsListPage.xaml.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAwwCgAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-12T16:01:36.084Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApiService.cs",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
-              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
-              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\Services\\ApiService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAANgAAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-12T15:58:25.614Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Controllers\\ProductsController.cs",
-              "RelativeDocumentMoniker": "ArendApp\\Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Controllers\\ProductsController.cs",
-              "RelativeToolTip": "ArendApp\\Controllers\\ProductsController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAQwCcAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-12T15:22:41.07Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "HistoriesController.cs",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Controllers\\HistoriesController.cs",
-              "RelativeDocumentMoniker": "ArendApp\\Controllers\\HistoriesController.cs",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Controllers\\HistoriesController.cs",
-              "RelativeToolTip": "ArendApp\\Controllers\\HistoriesController.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAswFYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T19:01:46.739Z",
+              "WhenOpened": "2024-03-14T12:24:12.027Z",
               "EditorCaption": ""
             }
           ]
