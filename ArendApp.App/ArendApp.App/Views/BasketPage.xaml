@@ -1,12 +1,115 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArendApp.App.Views.BasketPage">
+             x:Class="ArendApp.App.Views.BasketPage" Title="Корзина" x:Name="PageSelf">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+        <ListView x:Name="listView"
+     ItemsSource="{Binding Items}"
+     ItemTapped="Handle_ItemTapped"
+            
+     CachingStrategy="RecycleElement" HasUnevenRows="False" RowHeight="150" >
+
+            <ListView.ItemTemplate >
+                <DataTemplate>
+
+                    <ViewCell >
+                        <Frame  CornerRadius="10" Padding="0" Margin="10"   HasShadow="True">
+
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
+
+                                <Grid Grid.Column="1" Grid.Row="0" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" Grid.Row="0"/>
+                                    <Grid Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand" >
+                                        <Label TextColor="DarkSlateGray"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"  Background="Aqua" Grid.Column="0" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding MonthPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label TextColor="Red" TextDecorations="Strikethrough" FontSize="14" VerticalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"  Grid.Column="1" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding OldPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                    <Button Text="Убрать" Command="{Binding Source={x:Reference PageSelf}, Path=DeleteFromBasketCommand}" CommandParameter="{Binding Id}"  Grid.Row="2"/>
+                                    
+                                </Grid>
+                            </Grid>
+                            <!--<Grid >
+                                <Grid.RowDefinitions>
+                                    --><!-- img --><!--
+                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+
+                                </Grid.ColumnDefinitions>
+
+
+                                <Image Source="{Binding MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
+                                <Grid Grid.Row="1" Margin="5">
+
+                                    <Grid.RowDefinitions>
+                                        --><!-- name --><!--
+                                        <RowDefinition Height="auto"/>
+                                        --><!-- price --><!--
+                                        <RowDefinition Height="auto"/>
+                                        --><!-- description --><!--
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="0"/>
+                                    <Grid Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand">
+                                        <Label TextColor="DarkSlateGray"  HorizontalOptions="Start"  FontAttributes="Bold"  Background="Aqua" Grid.Column="0" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding MonthPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label TextColor="Red" TextDecorations="Strikethrough" FontSize="14" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"  Grid.Column="1" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding OldPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+
+                                    <Label Text="{Binding Description}" FontSize="Caption" Grid.Column="0" Grid.Row="2"/>
+                                </Grid>
+                            </Grid>-->
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

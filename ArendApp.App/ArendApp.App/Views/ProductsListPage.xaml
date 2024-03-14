@@ -38,17 +38,32 @@
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="0"/>
-                                    <Label TextColor="DarkSlateGray"  HorizontalOptions="Start"  FontAttributes="Bold"  Background="Aqua"  Grid.Column="0" Grid.Row="1">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <FormattedString.Spans>
-                                                    <Span Text="От "/>
-                                                    <Span Text="{Binding MonthPrice}"/>
-                                                    <Span Text="₽"/>
-                                                </FormattedString.Spans>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                    <Grid Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand">
+                                        <Label TextColor="DarkSlateGray"  HorizontalOptions="Start"  FontAttributes="Bold"  Background="Aqua" Grid.Column="0" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding MonthPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Label TextColor="Red" TextDecorations="Strikethrough" FontSize="14" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"  Grid.Column="1" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <FormattedString.Spans>
+                                                        <Span Text="От "/>
+                                                        <Span Text="{Binding OldPrice}"/>
+                                                        <Span Text="₽"/>
+                                                    </FormattedString.Spans>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                    
                                     <Label Text="{Binding Description}" FontSize="Caption" Grid.Column="0" Grid.Row="2"/>
                                 </Grid>
                             </Grid>

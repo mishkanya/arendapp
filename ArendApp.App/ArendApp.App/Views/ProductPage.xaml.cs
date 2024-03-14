@@ -33,9 +33,8 @@ namespace ArendApp.App.Views
 
             Images = new ObservableCollection<string>(images);
 
-            Carousel.ItemsSource = Images;
+            //Carousel.ItemsSource = Images;
             this.BindingContext = this;
-
         }
     }
 }

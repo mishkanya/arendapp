@@ -23,14 +23,16 @@ namespace ArendApp.App.Views
         public IDataStorage DataStorage => DependencyService.Get<IDataStorage>();
 
 
-        public ICommand RefreshingCommand { get;}
-        public bool IsRefreshing { 
-            get => _isRefreshing; 
-            set 
+        public ICommand RefreshingCommand { get; }
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
             {
                 _isRefreshing = value;
                 OnPropertyChanged("IsRefreshing");
-            } }
+            }
+        }
         private bool _isRefreshing;
 
 
@@ -38,18 +40,24 @@ namespace ArendApp.App.Views
         {
             InitializeComponent();
             Items = new ObservableCollection<Product>();
-            RefreshingCommand = new Command( async() =>
-            {
-                var t = await ApiService.GetProducts();
-                if (t.StatusCode != System.Net.HttpStatusCode.OK)
-                    return;
-                Items.Clear();
-                t.Data.ForEach((ptoduct) => Items.Add(ptoduct));
-                IsRefreshing = false;
-            });
-            RefreshingCommand.Execute(null);
+            RefreshingCommand = new Command(async () => await OnPageStart()); 
 
             BindingContext = this;
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await OnPageStart();
+        }
+        private async Task OnPageStart()
+        {
+            var t = await ApiService.GetProducts();
+            if (t.StatusCode != System.Net.HttpStatusCode.OK)
+                return;
+            Items.Clear();
+            t.Data.ForEach((ptoduct) => Items.Add(ptoduct));
+            IsRefreshing = false;
         }
 
         private async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -57,7 +65,7 @@ namespace ArendApp.App.Views
             if (e.Item == null)
                 return;
 
-            var productPage =  new ProductPage((Product)e.Item);
+            var productPage = new ProductPage((Product)e.Item);
             await Shell.Current.Navigation.PushAsync(productPage);
             ((ListView)sender).SelectedItem = null;
         }

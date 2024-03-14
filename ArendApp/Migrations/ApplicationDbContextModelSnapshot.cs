@@ -157,6 +157,23 @@ namespace ArendApp.Api.Migrations
                     b.ToTable("UsersData");
                 });
 
+            modelBuilder.Entity("ArendApp.Models.UserBasket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UsedId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UsersBasket");
+                });
+
             modelBuilder.Entity("ArendApp.Models.UserInventory", b =>
                 {
                     b.Property<int>("Id")

@@ -29,6 +29,21 @@ namespace ArendApp.Api.Controllers
             return await _context.Products.ToListAsync();
         }
 
+
+        // GET: api/Products/5
+        [HttpGet("ById")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByIds([FromQuery(Name = "id")] int[] ids)
+        {
+            var product = await _context.Products.Where(t => ids.Contains(t.Id)).ToListAsync();
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return product;
+        }
+
         // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)

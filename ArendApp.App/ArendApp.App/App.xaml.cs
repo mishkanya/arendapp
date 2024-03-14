@@ -20,32 +20,20 @@ namespace ArendApp.App
             DependencyService.Register<ApiService>();
             DependencyService.Register<DataStorage>();
 
-            MainPage = new Page();
+            var label = new Label() { Text = "Ожидание загрузки...", FontSize=20, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
+            var page = new ContentPage();
+            page.Content = label;
+            MainPage = page;
         }
 
         private async Task UserInit()
         {
-            var dataStorage = DependencyService.Get<DataStorage>();
-            var token = await dataStorage.GetToken();
+            try
+            {
+                var dataStorage = DependencyService.Get<DataStorage>();
+                var token = await dataStorage.GetToken();
 
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                NavigationPage.SetHasNavigationBar(this, true);
-                Application.Current.MainPage = new AppShell();
-                return;
-            }
-            else
-            {
-                var userData = await DependencyService.Get<IApiService>().GetUser();
-                if (userData.StatusCode != System.Net.HttpStatusCode.OK)
-                {
-                    await dataStorage.SetToken("");
-                    User = null;
-                    NavigationPage.SetHasNavigationBar(this, true);
-                    Application.Current.MainPage = new AppShell();
-                    return;
-                }
-                else if (userData.Data?.Confirmed == true)
+                if (string.IsNullOrWhiteSpace(token))
                 {
                     NavigationPage.SetHasNavigationBar(this, true);
                     Application.Current.MainPage = new AppShell();
@@ -53,11 +41,37 @@ namespace ArendApp.App
                 }
                 else
                 {
-                    Device.BeginInvokeOnMainThread(() => {
-                        Application.Current.MainPage = new CodeConfirmPage();
-                    });
-                    return;
+                    var userData = await DependencyService.Get<IApiService>().GetUser();
+                    if (userData.StatusCode != System.Net.HttpStatusCode.OK)
+                    {
+                        await dataStorage.SetToken("");
+                        User = null;
+                        NavigationPage.SetHasNavigationBar(this, true);
+                        Application.Current.MainPage = new AppShell();
+                        return;
+                    }
+                    else if (userData.Data?.Confirmed == true)
+                    {
+                        NavigationPage.SetHasNavigationBar(this, true);
+                        Application.Current.MainPage = new AppShell();
+                        return;
+                    }
+                    else
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            Application.Current.MainPage = new CodeConfirmPage();
+                        });
+                        return;
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                var label = new Label() { Text = "Упс, технические проблемы\nПопробуйте еще раз позже", TextColor=Color.Red, FontSize = 20, HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center };
+                var page = new ContentPage();
+                page.Content = label;
+                MainPage = page;
             }
         }
 
