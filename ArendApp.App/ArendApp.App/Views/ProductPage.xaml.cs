@@ -40,5 +40,7 @@ namespace ArendApp.App.Views
             Images = new ObservableCollection<string>(images);
             this.BindingContext = this;
         }
+
+        
     }
 }

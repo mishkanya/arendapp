@@ -45,8 +45,7 @@ namespace ArendApp.Api.Controllers
 
             if (images.Any())
             {
-                var requestUrl = RequestUrl;
-                var response = images.Select(t => new FileInfo(t).Name).Select(t => requestUrl + t);
+                var response = images.Select(t => new FileInfo(t).Name).Select(t => $"/{ImageFolderName}/{t}");
                 return Ok(response);
             }
             else

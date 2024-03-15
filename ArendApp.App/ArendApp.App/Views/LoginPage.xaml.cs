@@ -75,6 +75,11 @@ namespace ArendApp.App.Views
                 };
                 var response =  await _apiService.RegisterUser(user);
 
+                if(response.IsSuccessful == false) {
+                    await DisplayAlert("Ошибка авторизации", "Неверный логин или пароль", "Ок");
+                    return;
+                }
+
                 await _dataStorage.SetToken(response.Data.Token);
                 if (response.Data.Confirmed == false)
                 {
@@ -94,6 +99,12 @@ namespace ArendApp.App.Views
                     Password = LoginPassword,
                 };
                 var response = await _apiService.LoginUser(user);
+
+                if (response.IsSuccessful == false)
+                {
+                    await DisplayAlert("Ошибка авторизации", "Неверный логин или пароль", "Ок");
+                    return;
+                }
 
                 await _dataStorage.SetToken(response.Data.Token);
                 if (response.Data.Confirmed == false)

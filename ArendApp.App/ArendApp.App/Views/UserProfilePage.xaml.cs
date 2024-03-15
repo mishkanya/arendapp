@@ -2,6 +2,7 @@
 using ArendApp.App.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,30 +17,52 @@ namespace ArendApp.App.Views
     {
         public User UserData
         {
-            get => _user; 
+            get => _user;
             set
             {
                 _user = value;
                 OnPropertyChanged(nameof(UserData));
+                OnPropertyChanged(nameof(UserIsNotNull));
             }
         }
-
-        public bool MayChangeUser 
+        public bool UserIsNotNull => _user != null;
+        public bool MayChangeUser
         {
             get => _mayChangeUser;
             set
             {
                 _mayChangeUser = value;
                 OnPropertyChanged(nameof(MayChangeUser));
+                OnPropertyChanged(nameof(UserIsNotNull));
             }
         }
         private bool _mayChangeUser = false;
 
         private User _user;
+        public ObservableCollection<Product> Inventory { get; set; }
+        public ObservableCollection<Product> History { get; set; }
+
+        #region Commands
         public ICommand LogoutCommand { get; }
         public ICommand ResetUserDataCommand { get; }
         public ICommand EnableChangeUserCommand { get; }
         public ICommand SaveUserDataCommand { get; }
+        public ICommand OpenProductPageCommand { get; }
+
+
+        public ICommand RefreshingCommand { get; }
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged("IsRefreshing");
+            }
+        }
+        private bool _isRefreshing;
+        #endregion
+
         private IDataStorage _dataStorage => DependencyService.Get<IDataStorage>();
         private IApiService _apiService => DependencyService.Get<IApiService>();
         public UserProfilePage()
@@ -59,15 +82,39 @@ namespace ArendApp.App.Views
             {
                 MayChangeUser = !MayChangeUser;
             });
+            OpenProductPageCommand = new Command(async (object id) =>
+            {
+                var allProducts = new List<Product>();
+                allProducts.AddRange(History);
+                allProducts.AddRange(Inventory);
+
+                var product = allProducts.FirstOrDefault(t => t.Id == (int)id);
+
+                if (product == null) return;
+
+                var productPage = new ProductPage(product);
+                await Shell.Current.Navigation.PushAsync(productPage);
+            });
             SaveUserDataCommand = new Command(async () =>
             {
                 var response = await _apiService.ChangeUser(UserData);
                 if (response.IsSuccessful)
+                {
                     await DisplayAlert("Успех", "Данные успешно сохранены", "Ок");
-                else
+                    MayChangeUser = false;
 
+                }
+                else
+                {
+                    await DisplayAlert("Ошибка", "Данные не сохранены", "Ок");
                     UserData = App.User.Clone() as User;
+                }
             });
+            this.BindingContext = this;
+
+        }
+        private async Task LoadPageData()
+        {
             if (App.User == null)
             {
                 this.Content = new NoAutorizeView();
@@ -76,13 +123,30 @@ namespace ArendApp.App.Views
             {
                 UserData = App.User.Clone() as User;
             }
-            this.BindingContext = this;
+
+            var allInventory = await _apiService.GetInventory();
+            if (allInventory.IsSuccessful)
+            {
+                var inventory = allInventory.Data.Where(t => t.EndPeriod > DateTime.Now);
+                var inventoryProducts = await _apiService.GetProducts(inventory.Select(x => x.ProductId));
+
+                Inventory.Clear();
+                inventoryProducts.Data.ForEach((ptoduct) => Inventory.Add(ptoduct));
+
+                var histori = allInventory.Data.Where(t => t.EndPeriod < DateTime.Now);
+                var historiProducts = await _apiService.GetProducts(histori.Select(x => x.ProductId));
+
+                History.Clear();
+                historiProducts.Data.ForEach((ptoduct) => History.Add(ptoduct));
+            }
 
 
+            IsRefreshing = false;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
+            await LoadPageData();
             base.OnAppearing();
         }
     }

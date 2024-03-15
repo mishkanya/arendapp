@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using ArendApp.App.Services;
+using System.ComponentModel;
+using System.Linq;
 
 namespace ArendApp.App.Models
 {
@@ -33,5 +35,12 @@ namespace ArendApp.App.Models
         public string Brand { get; set; }
         public bool IsQuickCharge { get; set; }
 
+
+        public void SetImgUrl()
+        {
+            if (MainImage.StartsWith("/"))
+                MainImage = $"{ApiService.ServerUrl}{MainImage}";
+            SecondImages = string.Join(" | ", SecondImages.Split('|').Select(t => t.StartsWith("/") ? $"{ApiService.ServerUrl}{t}" : t));
+        }
     }
 }

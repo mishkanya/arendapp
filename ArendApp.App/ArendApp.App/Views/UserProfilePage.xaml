@@ -5,10 +5,11 @@
              xmlns:converters="clr-namespace:ArendApp.App.Extensions;assembly=ArendApp.App"
              Title="Профиль">
     <Shell.TitleView>
-        <Grid>
-            <Button Text="перестать изменять" IsVisible="{Binding MayChangeUser}"  Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
-            <Button Text="Изменить" IsVisible="{Binding MayChangeUser, Converter={StaticResource inverseBoolConverter}}" Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
-            <Button Text="Выйти" Command="{Binding LogoutCommand}" Grid.Column="3" HorizontalOptions="EndAndExpand" />
+        <Grid IsVisible="{Binding UserIsNotNull}" BackgroundColor="Transparent">
+            <Label Text="{Binding Title}" Grid.ColumnSpan="2" VerticalOptions="Center" TextColor="White" FontSize="20" FontAttributes="Bold"/>
+            <Button Text="Отменить" FontSize="12" IsVisible="{Binding MayChangeUser}"  Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
+            <Button Text="Изменить" FontSize="12" IsVisible="{Binding MayChangeUser, Converter={StaticResource inverseBoolConverter}}" Command="{Binding EnableChangeUserCommand}" Grid.Column="2"/>
+            <Button Text="Выйти" FontSize="12" Command="{Binding LogoutCommand}" Grid.Column="3" HorizontalOptions="EndAndExpand" />
         </Grid>
     </Shell.TitleView>
 
@@ -19,17 +20,62 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Email:"/>
-            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Email, Mode=TwoWay}"/>
-            <Label Text="Name:"/>
-            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Name, Mode=TwoWay}"/>
-            <Label Text="Password:"/>
-            <Entry HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Password, Mode=TwoWay}"/>
-            <Grid IsVisible="{Binding MayChangeUser}" >
-                <Button Command="{Binding ResetUserDataCommand}" Text="Сбросить изменения" Grid.Column="0"/>
-                <Button Command="{Binding SaveUserDataCommand}" Text="Сохранить" Grid.Column="1"/>
-            </Grid>
-        </StackLayout>
+        <RefreshView  IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+         Command="{Binding RefreshingCommand}">
+            <ScrollView>
+                <StackLayout Margin="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" FontSize="Body" Text="Email:"/>
+                        <Entry Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Email, Mode=TwoWay}"/>
+                        <Label Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center" FontSize="Body" Text="Name:"/>
+                        <Entry Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" Text="{Binding UserData.Name, Mode=TwoWay}"/>
+                        <Label Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center" FontSize="Body" Text="Password:"/>
+                        <Entry Grid.Row="2" Grid.Column="1" HorizontalTextAlignment="Center" IsEnabled="{Binding MayChangeUser}" IsPassword="True" Text="{Binding UserData.Password, Mode=TwoWay}"/>
+                    </Grid>
+                    <Grid IsVisible="{Binding MayChangeUser}" >
+                        <Button Command="{Binding ResetUserDataCommand}" Text="Сбросить изменения" Grid.Column="0"/>
+                        <Button Command="{Binding SaveUserDataCommand}" Text="Сохранить" Grid.Column="1"/>
+                    </Grid>
+                    
+                    <BoxView Margin="5" Color="LightGray" CornerRadius="2" HeightRequest="2"/>
+                    
+                    <CarouselView ItemsSource="{Binding Products}" 
+                         HeightRequest="200">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="200">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OpenProductPageCommand}" CommandParameter="{Binding Id}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Frame>
+                                        <Frame CornerRadius="10" Padding="0" Margin="10"   HasShadow="True">
+                                            <Grid >
+                                                <Grid.RowDefinitions>
+                                                    <!-- img -->
+                                                    <RowDefinition Height="3*"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+
+                                                </Grid.ColumnDefinitions>
+
+
+                                                <Image Source="{Binding MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
+                                                <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="1"/>
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+                                    
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

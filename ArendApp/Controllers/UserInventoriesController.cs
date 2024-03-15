@@ -62,11 +62,33 @@ namespace ArendApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<UserInventory>> PostUserInventory(UserInventory userInventory)
         {
+
+            var user = await this.GetUserAsync();
+
+            if(user.Id != userInventory.UsedId && user.IsAdmin == false )
+            {
+                return Forbid();
+            }
+
+            var product = await _context.Products.FindAsync(userInventory.ProductId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var basketProduct = await _context.UsersBasket.FirstOrDefaultAsync(t => t.ProductId == userInventory.ProductId && t.UsedId == userInventory.UsedId);
+            if (basketProduct != null)
+            {
+                _context.Remove(basketProduct);
+            }
+
             _context.UsersInventory.Add(userInventory);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUserInventory", new { id = userInventory.Id }, userInventory);
         }
+        
 
         // DELETE: api/UserInventories/5
         [HttpDelete("{id}")]

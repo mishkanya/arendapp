@@ -18,14 +18,19 @@ namespace ArendApp.App.Services
     public interface IApiService
     {
         Task<ServerResponse<List<Product>>> GetProducts();
+        Task<ServerResponse<List<Product>>> GetProducts(IEnumerable<int> id);
+
         Task<ServerResponse<User>> RegisterUser(User user);
         Task<ServerResponse<User>> LoginUser(User user);
-        Task<ServerResponse<User>> ConfirmCode(string code);
-        Task<ServerResponse<UserBasket>> AddToBasket(UserBasket userBasket);
         Task<ServerResponse<User>> GetUser();
+        Task<ServerResponse<object>> ChangeUser(User user);
+        Task<ServerResponse<User>> ConfirmCode(string code);
+
+        Task<ServerResponse<UserBasket>> AddToBasket(UserBasket userBasket);
         Task<ServerResponse<List<UserBasket>>> GetBasket();
-        Task<ServerResponse<List<Product>>> GetProducts(IEnumerable<int> id);
-        Task<ServerResponse<object>> DeleteFromBasket(string Id); Task<ServerResponse<object>> ChangeUser(User user);
+        Task<ServerResponse<object>> DeleteFromBasket(string Id);
+
+        Task<ServerResponse<List<UserInventory>>> GetInventory();
     }
 
     class ApiRequestParams
@@ -64,7 +69,7 @@ namespace ArendApp.App.Services
                 var requestUrl = "https://api.telegra.ph/getPage/ServerUrl-03-07?return_content=true";
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    httpClient.BaseAddress = new Uri(requestUrl);
+                    //httpClient.BaseAddress = new Uri(requestUrl);
                     var response = httpClient.GetStringAsync(requestUrl).Result;
 
                     response = response.Trim().Replace(Environment.NewLine, "");
@@ -97,7 +102,7 @@ namespace ArendApp.App.Services
                 Body = user,
                 Route = $"api/Users/{Id}",
             };
-            var response = await GetRequest<object>(apiRequestParams);
+            var response = await SendRequest<object>(apiRequestParams);
             if (response.IsSuccessful)
                 await this.GetUser();
             return response;
@@ -110,7 +115,7 @@ namespace ArendApp.App.Services
                 Body = userBasket,
                 Route = $"api/UsersBasket",
             };
-            return await GetRequest<UserBasket>(apiRequestParams);
+            return await SendRequest<UserBasket>(apiRequestParams);
         }
 
         public async Task<ServerResponse<object>> DeleteFromBasket(string Id)
@@ -121,9 +126,35 @@ namespace ArendApp.App.Services
                 Body = null,
                 Route = $"api/UsersBasket/ByProduct/{Id}",
             };
-            return await GetRequest<object>(apiRequestParams);
+            return await SendRequest<object>(apiRequestParams);
         }
-        public async Task<ServerResponse<List<Product>>> GetProducts() => await GetRequest<List<Product>>("api/Products", RequestMethod.Get);
+        public async Task<ServerResponse<List<Product>>> GetProducts()
+        {
+
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = "api/Products"
+            };
+            var response = await SendRequest<List<Product>>(apiRequestParams);
+            if (response.IsSuccessful)
+                response.Data.ForEach((product) => product.SetImgUrl());
+            return response;
+        }
+
+        public async Task<ServerResponse<Product>> GetProduct(int id)
+        {
+
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = $"api/Products/{id}"
+            };
+            var response = await SendRequest<Product>(apiRequestParams);
+            if (response.IsSuccessful)
+                response.Data.SetImgUrl();
+            return response;
+        }
         public async Task<ServerResponse<List<Product>>> GetProducts(IEnumerable<int> id)
         {
             var apiRequestParams = new ApiRequestParams()
@@ -133,77 +164,104 @@ namespace ArendApp.App.Services
                 Route = "api/Products/ById",
                 UriData = new UriData("id", id.Cast<object>().ToList())
             };
-            return await GetRequest<List<Product>>(apiRequestParams);
+            var response = await SendRequest<List<Product>>(apiRequestParams);
+            if (response.IsSuccessful)
+                response.Data.ForEach((product) => product.SetImgUrl());
+            return response;
         }
 
-        public async Task<ServerResponse<List<UserBasket>>> GetBasket() => await GetRequest<List<UserBasket>>("api/UsersBasket", RequestMethod.Get);
+
+        public async Task<ServerResponse<List<UserInventory>>> GetInventory()
+        {
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = "api/UserInventories",
+            };
+            return await SendRequest<List<UserInventory>>(apiRequestParams);
+        }
+
+
+        public async Task<ServerResponse<UserInventory>> BuyProduct(int productId, DateTime endPeriod)
+        {
+            var userInventory = new UserInventory()
+            {
+                ProductId = productId,
+                UsedId = App.User.Id,
+                StartPeriod = DateTime.Now,
+                EndPeriod = endPeriod
+            };
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Post,
+                Route = "api/UserInventories",
+                Body = userInventory
+            };
+            return await SendRequest<UserInventory>(apiRequestParams);
+        }
+
+
+        public async Task<ServerResponse<List<UserBasket>>> GetBasket()
+        {
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = "api/UsersBasket",
+            };
+            return await SendRequest<List<UserBasket>>(apiRequestParams);
+        }
         public async Task<ServerResponse<User>> RegisterUser(User user)
         {
-            var userData = await GetRequest<User>("api/Users", RequestMethod.Post, user);
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Post,
+                Body = user,
+                Route = "api/Users",
+            };
+            var userData = await SendRequest<User>(apiRequestParams);
             if (userData.Data != null)
                 App.User = userData.Data;
             return userData;
         }
         public async Task<ServerResponse<User>> LoginUser(User user)
         {
-            var userData = await GetRequest<User>("api/Users/Login", RequestMethod.Post, user);
-            if (userData.Data != null)
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Post,
+                Body = user,
+                Route = "api/Users/Login",
+            };
+            var userData = await SendRequest<User>(apiRequestParams);
+            if (userData.IsSuccessful)
                 App.User = userData.Data;
             return userData;
         }
-        public async Task<ServerResponse<User>> ConfirmCode(string code) => await GetRequest<User>($"api/Users/Confirm/{code}", RequestMethod.Get);
-        public async Task<ServerResponse<User>> GetUser()
+        public async Task<ServerResponse<User>> ConfirmCode(string code)
         {
 
-            var user = await GetRequest<User>($"api/Users/GetByToken", RequestMethod.Get);
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = $"api/Users/Confirm/{code}"
+            };
+            return await SendRequest<User>(apiRequestParams);
+        }
+        public async Task<ServerResponse<User>> GetUser()
+        {
+            var apiRequestParams = new ApiRequestParams()
+            {
+                Method = RequestMethod.Get,
+                Route = $"api/Users/GetByToken"
+            };
+            var user = await SendRequest<User>(apiRequestParams);
             if (user.Data != null)
                 App.User = user.Data;
             return user;
         }
 
-        private async Task<ServerResponse<T>> GetRequest<T>(string route, RequestMethod method, object body = null) where T : class, new()
-        {
-            string requestUrl = $"{ServerUrl}{route}";
-            ServerResponse<T> responseData = new ServerResponse<T>();
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                httpClient.BaseAddress = new Uri(ServerUrl);
 
-                var userToken = await _dataStorage.GetToken();
-                if (string.IsNullOrWhiteSpace(userToken) == false)
-                    httpClient.DefaultRequestHeaders.Add("UserToken", userToken);
-
-                HttpContent bodyContent = default;
-                if (body != null)
-                    bodyContent = JsonContent.Create(body);
-
-                HttpResponseMessage response = default;
-
-                if (method == RequestMethod.Get)
-                    response = await httpClient.GetAsync(requestUrl);
-                else if (method == RequestMethod.Post)
-                    response = await httpClient.PostAsync(requestUrl, bodyContent);
-                else if (method == RequestMethod.Delete)
-                    response = await httpClient.DeleteAsync(requestUrl);
-                else if (method == RequestMethod.Put)
-                    response = await httpClient.PutAsync(requestUrl, bodyContent);
-
-                responseData.StatusCode = response.StatusCode;
-
-                var content = await response.Content.ReadAsStringAsync();
-                responseData.Message = content;
-
-                if (content != null)
-                {
-                    var data = JsonSerializer.Deserialize<T>(content, jsonSerializerOptions);
-                    responseData.Data = data;
-                }
-
-                return responseData;
-            }
-        }
-        private async Task<ServerResponse<T>> GetRequest<T>(ApiRequestParams apiRequestParams) where T : class, new()
+        private async Task<ServerResponse<T>> SendRequest<T>(ApiRequestParams apiRequestParams) where T : class, new()
         {
             string requestUrl = $"{ServerUrl}{apiRequestParams.Route}";
             if (apiRequestParams.UriData != null)
@@ -242,6 +300,9 @@ namespace ArendApp.App.Services
 
                     var content = await response.Content.ReadAsStringAsync();
                     responseData.Message = content;
+                    int statusCodeint = (int)response.StatusCode;
+                    if (statusCodeint > 299)
+                        responseData.ErrorMessage = response.StatusCode.ToString();
 
                     if (content != null && string.IsNullOrEmpty(content) == false)
                     {
