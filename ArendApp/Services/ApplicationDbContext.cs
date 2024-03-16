@@ -9,6 +9,9 @@ namespace ArendApp.Api.Services
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            if(UsersData.Any(t=> t.IsAdmin) == false)
+                UsersData.Add(new User() { IsAdmin = true, Confirmed=true, Email="root@root.root", Name="root", Password="root" });
+            this.SaveChanges();
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }

@@ -31,6 +31,8 @@ namespace ArendApp.App.Services
         Task<ServerResponse<object>> DeleteFromBasket(string Id);
 
         Task<ServerResponse<List<UserInventory>>> GetInventory();
+
+        Task<ServerResponse<UserInventory>> BuyProduct(int productId, DateTime endPeriod);
     }
 
     class ApiRequestParams
@@ -266,7 +268,7 @@ namespace ArendApp.App.Services
             string requestUrl = $"{ServerUrl}{apiRequestParams.Route}";
             if (apiRequestParams.UriData != null)
             {
-                requestUrl += $"?{string.Join($"", apiRequestParams.UriData.Data.Select(t => $"{apiRequestParams.UriData.DataName}={t}"))}";
+                requestUrl += $"?{string.Join($"&", apiRequestParams.UriData.Data.Select(t => $"{apiRequestParams.UriData.DataName}={t}"))}";
             }
 
             ServerResponse<T> responseData = new ServerResponse<T>();

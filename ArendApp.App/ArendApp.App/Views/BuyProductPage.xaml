@@ -1,9 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArendApp.App.Views.BuyProductPage">
+             x:Class="ArendApp.App.Views.BuyProductPage" Title="Покупка">
     <ContentPage.Content>
         <StackLayout>
+            <Frame  CornerRadius="10" Padding="0" Margin="10"   HasShadow="True">
+
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding Product.MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
+
+                    <Grid Grid.Column="1" Grid.Row="0" VerticalOptions="Center">
+                        <Label Text="{Binding Product.Name}" Grid.Row="0"/>
+                        <Grid Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand" >
+                            <Label TextColor="DarkSlateGray"  HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"  Background="Aqua" Grid.Column="0" >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="От "/>
+                                            <Span Text="{Binding Product.MonthPrice}"/>
+                                            <Span Text="₽"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <Label TextColor="Red" TextDecorations="Strikethrough" FontSize="14" VerticalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold"  Grid.Column="1" >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <FormattedString.Spans>
+                                            <Span Text="От "/>
+                                            <Span Text="{Binding Product.OldPrice}"/>
+                                            <Span Text="₽"/>
+                                        </FormattedString.Spans>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </Frame>
+
+            <StackLayout Margin="5">
+                <Label Text="На сколько дней хоите взять?" FontSize="Body"/>
+                <Grid>
+                    <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На один день" Grid.Column="0"/>
+                    <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На три дня" Grid.Column="1"/>
+                    <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На неделю" Grid.Column="2"/>
+                    <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На две недели" Grid.Column="3"/>
+                    <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На месяц" Grid.Column="4"/>
+                </Grid>
+                <Grid>
+                    <Slider x:Name="PeriodSlider" MaximumTrackColor="LightPink" MinimumTrackColor="LightPink" Margin="20,0,20,0" Grid.ColumnSpan="5" Value="2" Maximum="5" Minimum="1.0" HorizontalOptions="FillAndExpand" ValueChanged="slider_ValueChanged" />
+                    
+                    <Ellipse Grid.Column="0" HeightRequest="14" WidthRequest="14" HorizontalOptions="Center" Stroke="Red" Opacity="0.5" StrokeThickness="2" VerticalOptions="Center"/>
+                    <Ellipse Grid.Column="1" HeightRequest="14" WidthRequest="14" HorizontalOptions="Center" Stroke="Red" Opacity="0.5" StrokeThickness="2" VerticalOptions="Center"/>
+                    <Ellipse Grid.Column="2" HeightRequest="14" WidthRequest="14" HorizontalOptions="Center" Stroke="Red" Opacity="0.5" StrokeThickness="2" VerticalOptions="Center"/>
+                    <Ellipse Grid.Column="3" HeightRequest="14" WidthRequest="14" HorizontalOptions="Center" Stroke="Red" Opacity="0.5" StrokeThickness="2" VerticalOptions="Center"/>
+                    <Ellipse Grid.Column="4" HeightRequest="14" WidthRequest="14" HorizontalOptions="Center" Stroke="Red" Opacity="0.5" StrokeThickness="2" VerticalOptions="Center"/>
+                </Grid>
+                <Label HorizontalTextAlignment="Center" Text="{Binding CalculatedPrice}" FontAttributes="Italic"/>
+                <Button Text="Купить" Command="{Binding BuyCommand}"/>
+            </StackLayout>
             
         </StackLayout>
     </ContentPage.Content>

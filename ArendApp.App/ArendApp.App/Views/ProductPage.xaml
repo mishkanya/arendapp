@@ -91,7 +91,7 @@
 
                         <Grid>
                             <Button Text="В корзину" Command="{Binding AddToBasketCommand}" Grid.Column="0"/>
-                            <Button Text="Купить сейчас" Grid.Column="1"/>
+                            <Button Text="Купить сейчас" Command="{Binding BuyProductCommand}" Grid.Column="1"/>
                         </Grid>
                     </StackLayout>
                 </ScrollView>

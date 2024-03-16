@@ -11,9 +11,13 @@ namespace ArendApp.App
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ProductsListPage), typeof(ProductsListPage));
-            Routing.RegisterRoute(nameof(UserProfilePage), typeof(UserProfilePage));
-            Routing.RegisterRoute(nameof(BasketPage), typeof(BasketPage));
+            //Routing.RegisterRoute(nameof(ProductsListPage), typeof(ProductsListPage));
+            //Routing.RegisterRoute(nameof(ProductPage), typeof(ProductPage));
+            //Routing.RegisterRoute(nameof(UserProfilePage), typeof(UserProfilePage));
+            //Routing.RegisterRoute(nameof(BuyProductPage), typeof(BuyProductPage));
+            //Routing.RegisterRoute(nameof(BasketPage), typeof(BasketPage)); 
+            //Routing.RegisterRoute(nameof(AppShell), typeof(AppShell)); 
+
         }
 
     }

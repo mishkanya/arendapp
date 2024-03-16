@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ArendApp.App.Views.UserProfilePage"
              xmlns:converters="clr-namespace:ArendApp.App.Extensions;assembly=ArendApp.App"
-             Title="Профиль">
+             Title="Профиль" x:Name="PageSelf">
     <Shell.TitleView>
         <Grid IsVisible="{Binding UserIsNotNull}" BackgroundColor="Transparent">
             <Label Text="{Binding Title}" Grid.ColumnSpan="2" VerticalOptions="Center" TextColor="White" FontSize="20" FontAttributes="Bold"/>
@@ -42,21 +42,22 @@
                     </Grid>
                     
                     <BoxView Margin="5" Color="LightGray" CornerRadius="2" HeightRequest="2"/>
-                    
-                    <CarouselView ItemsSource="{Binding Products}" 
-                         HeightRequest="200">
+
+                    <Label Text="Сейчас в пользовании:" FontSize="Body"/>
+                    <CarouselView ItemsSource="{Binding Inventory}" 
+                         HeightRequest="250">
                         <CarouselView.ItemTemplate>
                             <DataTemplate>
-                                <Grid WidthRequest="200">
+                                <Grid WidthRequest="250">
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OpenProductPageCommand}" CommandParameter="{Binding Id}"/>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageSelf}, Path=OpenProductPageCommand}" CommandParameter="{Binding Id}"/>
                                     </Grid.GestureRecognizers>
                                     <Frame>
                                         <Frame CornerRadius="10" Padding="0" Margin="10"   HasShadow="True">
                                             <Grid >
                                                 <Grid.RowDefinitions>
                                                     <!-- img -->
-                                                    <RowDefinition Height="3*"/>
+                                                    <RowDefinition Height="4*"/>
                                                     <RowDefinition/>
                                                 </Grid.RowDefinitions>
                                                 <Grid.ColumnDefinitions>
@@ -64,12 +65,45 @@
                                                 </Grid.ColumnDefinitions>
 
 
-                                                <Image Source="{Binding MainImage}" Aspect="AspectFill"  Grid.Column="0" Grid.Row="0" />
-                                                <Label Text="{Binding Name}" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="1"/>
+                                                <Image Source="{Binding MainImage}" Aspect="AspectFit"  WidthRequest="250" HeightRequest="200" Grid.Column="0" Grid.Row="0"/>
+                                                <Label Text="{Binding Name}" HorizontalOptions="Center" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="1"/>
                                             </Grid>
                                         </Frame>
                                     </Frame>
                                     
+                                </Grid>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+
+                    <Label Text="История аренды:" FontSize="Body"/>
+                    <CarouselView ItemsSource="{Binding History}" 
+      HeightRequest="250">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid WidthRequest="250">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageSelf}, Path=OpenProductPageCommand}" CommandParameter="{Binding Id}"/>
+                                    </Grid.GestureRecognizers>
+                                    <Frame>
+                                        <Frame CornerRadius="10" Padding="0" Margin="10"   HasShadow="True">
+                                            <Grid >
+                                                <Grid.RowDefinitions>
+                                                    <!-- img -->
+                                                    <RowDefinition Height="4*"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+
+                                                </Grid.ColumnDefinitions>
+
+
+                                                <Image Source="{Binding MainImage}" Aspect="AspectFit"  WidthRequest="250" HeightRequest="200" Grid.Column="0" Grid.Row="0"/>
+                                                <Label Text="{Binding Name}" HorizontalOptions="Center" FontSize="Body" FontAttributes="Bold"  Grid.Column="0" Grid.Row="1"/>
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+
                                 </Grid>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>

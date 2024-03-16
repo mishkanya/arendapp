@@ -39,8 +39,8 @@ namespace ArendApp.App.Views
         private bool _mayChangeUser = false;
 
         private User _user;
-        public ObservableCollection<Product> Inventory { get; set; }
-        public ObservableCollection<Product> History { get; set; }
+        public ObservableCollection<Product> Inventory { get; set; } = new ObservableCollection<Product>();
+        public ObservableCollection<Product> History { get; set; } = new ObservableCollection<Product>();
 
         #region Commands
         public ICommand LogoutCommand { get; }
@@ -109,6 +109,10 @@ namespace ArendApp.App.Views
                     await DisplayAlert("Ошибка", "Данные не сохранены", "Ок");
                     UserData = App.User.Clone() as User;
                 }
+            });
+            RefreshingCommand = new Command(async () =>
+            {
+                await LoadPageData();
             });
             this.BindingContext = this;
 

@@ -19,6 +19,7 @@ namespace ArendApp.App.Views
         public Product Product { get; set; }
         public ObservableCollection<string> Images { get; set; }
         public ICommand AddToBasketCommand { get; }
+        public ICommand BuyProductCommand { get; }
 
         public IApiService _apiService => DependencyService.Get<IApiService>();
         public IDataStorage DataStorage => DependencyService.Get<IDataStorage>();
@@ -30,6 +31,11 @@ namespace ArendApp.App.Views
             {
                 var userBasket = new UserBasket() { ProductId = product.Id, UsedId = App.User.Id };
                 await _apiService.AddToBasket(userBasket);
+            });
+            BuyProductCommand = new Command(async () =>
+            {
+                var buyProductPage = new BuyProductPage(Product);
+                await Shell.Current.Navigation.PushAsync(buyProductPage);
             });
             List<string> images = new List<string>() { product.MainImage };
             if(string.IsNullOrWhiteSpace(product.SecondImages) == false )
