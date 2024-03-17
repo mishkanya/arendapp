@@ -80,7 +80,7 @@ namespace ArendApp.App.Views
                 await DisplayAlert("Арендавано!", "Вы успешно арендавали аккумулятор", "Ок");
                 App.Current.MainPage = new AppShell();
             });
-            CalculatedPrice = $"Цена за аренду на один день: {_product.OncePrice} в день\nИтого: {_product.OncePrice}";
+            CalculatedPrice = $"Цена за аренду на один день: {_product.OncePrice} в день\nИтого: {_product.OncePrice + _product.Deposit}";
             this.BindingContext = this;
         }
 
@@ -112,19 +112,19 @@ namespace ArendApp.App.Views
             switch (sliderValue)
             {
                 case 1:
-                    CalculatedPrice = $"Цена за аренду на {value}: {_product.OncePrice} в день\nИтого: {_product.OncePrice}";
+                    CalculatedPrice = $"Цена за аренду на {value}: {_product.OncePrice} в день\nИтого: {_product.OncePrice + _product.Deposit}";
                     break;
                 case 2:
-                    CalculatedPrice = $"Цена за аренду на {value}: {_product.ThreeDayPrice} в день\nИтого: {_product.ThreeDayPrice * 3}";
+                    CalculatedPrice = $"Цена за аренду на {value}: {_product.ThreeDayPrice} в день\nИтого: {_product.ThreeDayPrice * 3 + _product.Deposit}";
                     break;
                 case 3:
-                    CalculatedPrice = $"Цена за аренду на {value}: {_product.SevenDayPrice} в день\nИтого: {_product.SevenDayPrice * 7}";
+                    CalculatedPrice = $"Цена за аренду на {value}: {_product.SevenDayPrice} в день\nИтого: {_product.SevenDayPrice * 7 + _product.Deposit}";
                     break;
                 case 4:
-                    CalculatedPrice = $"Цена за аренду на {value}: {_product.TwoWeekPrice} в день\nИтого: {_product.TwoWeekPrice * 14}";
+                    CalculatedPrice = $"Цена за аренду на {value}: {_product.TwoWeekPrice} в день\nИтого: {_product.TwoWeekPrice * 14 + _product.Deposit}";
                     break;
                 case 5:
-                    CalculatedPrice = $"Цена за аренду на  {value}: {_product.MonthPrice} в день\nИтого: {_product.MonthPrice * 30}";
+                    CalculatedPrice = $"Цена за аренду на  {value}: {_product.MonthPrice} в день\nИтого: {_product.MonthPrice * 30 + _product.Deposit}";
                     break;
             }
         }

@@ -46,6 +46,10 @@
             </Frame>
 
             <StackLayout Margin="5">
+
+                <Label Text="Залог:" FontSize="Body"/>
+                <Label HorizontalTextAlignment="Center" Text="{Binding Deposit}" FontAttributes="Italic"/>
+
                 <Label Text="На сколько дней хоите взять?" FontSize="Body"/>
                 <Grid>
                     <Label HorizontalOptions="Center" VerticalTextAlignment="Center" Text="На один день" Grid.Column="0"/>
