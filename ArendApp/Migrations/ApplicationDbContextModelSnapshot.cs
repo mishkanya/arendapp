@@ -17,23 +17,6 @@ namespace ArendApp.Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
 
-            modelBuilder.Entity("ArendApp.Models.History", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("UsedId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Histories");
-                });
-
             modelBuilder.Entity("ArendApp.Models.Image", b =>
                 {
                     b.Property<int>("Id")

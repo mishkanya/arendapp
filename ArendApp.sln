@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.App.iOS", "ArendAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArendApp.App", "ArendApp.App\ArendApp.App\ArendApp.App.csproj", "{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArendApp.Models", "ArendApp.Models\ArendApp.Models.csproj", "{F06B807F-F254-41C8-A56C-4FFC96C945C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArendApp.Models", "ArendApp.Models\ArendApp.Models.csproj", "{F06B807F-F254-41C8-A56C-4FFC96C945C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

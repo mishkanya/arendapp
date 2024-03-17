@@ -1,0 +1,29 @@
+﻿@model IEnumerable<IFormFile>
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Image</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-controller="Images" asp-action="Create">
+            <span>Select File:</span>
+            <input type="file" name="files" multiple />
+            <input type="submit" value="Upload" />
+            <br />
+            <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

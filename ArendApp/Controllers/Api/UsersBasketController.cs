@@ -9,7 +9,7 @@ using ArendApp.Api.Services;
 using ArendApp.Models;
 using ArendApp.Api.Extensions;
 
-namespace ArendApp.Api.Controllers
+namespace ArendApp.Api.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -81,8 +81,8 @@ namespace ArendApp.Api.Controllers
             {
                 return NotFound();
             }
-            if(user.IsAdmin == false)
-                if(usersBasket.UsedId != user.Id)
+            if (user.IsAdmin == false)
+                if (usersBasket.UsedId != user.Id)
                 {
                     return NotFound();
                 }

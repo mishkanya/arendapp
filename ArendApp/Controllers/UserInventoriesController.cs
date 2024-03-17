@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ArendApp.Api.Services;
 using ArendApp.Models;
-using ArendApp.Api.Extensions;
 
 namespace ArendApp.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    [HeaderValidator()]
-    public class UserInventoriesController : ControllerBase
+    public class UserInventoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -23,89 +19,139 @@ namespace ArendApp.Api.Controllers
             _context = context;
         }
 
-        // GET: api/UserInventories/All
-        [HttpGet("All")]
-        public async Task<ActionResult<IEnumerable<UserInventory>>> GetUsersInventoryAll()
+        // GET: UserInventories
+        public async Task<IActionResult> Index()
         {
-            return await _context.UsersInventory.ToListAsync();
+            return View(await _context.UsersInventory.ToListAsync());
         }
 
-        // GET: api/UserInventories
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserInventory>>> GetUsersInventory()
+        // GET: UserInventories/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var user = await this.GetUserAsync();
-            return await _context.UsersInventory.Where(t => t.UsedId == user.Id).ToListAsync();
-        }
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // GET: api/UserInventories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserInventory>> GetUserInventory(int id)
-        {
-            var userInventory = await _context.UsersInventory.FindAsync(id);
-
-
+            var userInventory = await _context.UsersInventory
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (userInventory == null)
             {
                 return NotFound();
             }
-            var user = await this.GetUserAsync();
-            if (user.Id != userInventory.UsedId && user.IsAdmin == false)
-            {
-                return Forbid();
-            }
 
-            return userInventory;
+            return View(userInventory);
         }
 
-        // POST: api/UserInventories
+        // GET: UserInventories/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: UserInventories/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<ActionResult<UserInventory>> PostUserInventory(UserInventory userInventory)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("StartPeriod,EndPeriod,Id,UsedId,ProductId")] UserInventory userInventory)
         {
-
-            var user = await this.GetUserAsync();
-
-            if(user.Id != userInventory.UsedId && user.IsAdmin == false )
+            if (ModelState.IsValid)
             {
-                return Forbid();
+                _context.Add(userInventory);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
+            return View(userInventory);
+        }
 
-            var product = await _context.Products.FindAsync(userInventory.ProductId);
-
-            if (product == null)
+        // GET: UserInventories/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var basketProduct = await _context.UsersBasket.FirstOrDefaultAsync(t => t.ProductId == userInventory.ProductId && t.UsedId == userInventory.UsedId);
-            if (basketProduct != null)
-            {
-                _context.Remove(basketProduct);
-            }
-
-            _context.UsersInventory.Add(userInventory);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUserInventory", new { id = userInventory.Id }, userInventory);
-        }
-        
-
-        // DELETE: api/UserInventories/5
-        [HttpDelete("{id}")]
-        [HeaderValidator(true)]
-        public async Task<IActionResult> DeleteUserInventory(int id)
-        {
             var userInventory = await _context.UsersInventory.FindAsync(id);
             if (userInventory == null)
             {
                 return NotFound();
             }
-
-            _context.UsersInventory.Remove(userInventory);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            return View(userInventory);
         }
 
+        // POST: UserInventories/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("StartPeriod,EndPeriod,Id,UsedId,ProductId")] UserInventory userInventory)
+        {
+            if (id != userInventory.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(userInventory);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserInventoryExists(userInventory.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(userInventory);
+        }
+
+        // GET: UserInventories/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var userInventory = await _context.UsersInventory
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (userInventory == null)
+            {
+                return NotFound();
+            }
+
+            return View(userInventory);
+        }
+
+        // POST: UserInventories/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var userInventory = await _context.UsersInventory.FindAsync(id);
+            if (userInventory != null)
+            {
+                _context.UsersInventory.Remove(userInventory);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool UserInventoryExists(int id)
+        {
+            return _context.UsersInventory.Any(e => e.Id == id);
+        }
     }
 }

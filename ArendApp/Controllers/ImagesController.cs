@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ArendApp.Api.Services;
 using ArendApp.Models;
-using System.IO;
-using Microsoft.Extensions.Hosting;
 using ArendApp.Api.Extensions;
 
 namespace ArendApp.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ImagesController : ControllerBase
+    public class ImagesController : Controller
     {
         private IWebHostEnvironment _environment;
         public const string ImageFolderName = "Images";
@@ -25,15 +21,14 @@ namespace ArendApp.Api.Controllers
 
         public ImagesController(IWebHostEnvironment environment)
         {
-            this._environment = environment;
+            _environment = environment;
         }
 
-        // GET: api/Images
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> GetImages()
+        // GET: Images
+        public async Task<IActionResult> Index()
         {
             string wwwPath = _environment.WebRootPath;
-            string contentPath = this._environment.ContentRootPath;
+            string contentPath = _environment.ContentRootPath;
 
             string path = Path.Combine(_environment.WebRootPath, ImageFolderName);
             if (!Directory.Exists(path))
@@ -46,50 +41,104 @@ namespace ArendApp.Api.Controllers
             if (images.Any())
             {
                 var response = images.Select(t => new FileInfo(t).Name).Select(t => $"/{ImageFolderName}/{t}");
-                return Ok(response);
+                return View(response);
             }
             else
                 return NotFound();
+            //return View(await _context.Images.ToListAsync());
         }
 
-        // POST: api/Images
-        [HttpPost]
-        [HeaderValidator(true)]
-        public async Task<string> PostImage(IFormFileCollection images)
+        //GET: Images/Details/5
+        //[Route("[controller]/Details/{id}")]
+        public async Task<IActionResult> Details(string id)
         {
+            id = id.Replace("%2F", "/");
+            var findName = id.Split("/").Last();
             string wwwPath = _environment.WebRootPath;
             string contentPath = _environment.ContentRootPath;
 
-            string path = Path.Combine(_environment.WebRootPath, ImageFolderName);
+            string path = Path.Combine(_environment.WebRootPath, "Images");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            List<string> uploadedFiles = new List<string>();
-            foreach (var image in images)
-            {
-                var fileExtension = Path.GetExtension(image.FileName);
-                if (_allowedExtension.Contains(fileExtension) == false)
-                    continue;
+            var files = Directory.EnumerateFiles(path);
+            var images = files.FirstOrDefault(t => t.Contains(findName));
+            if (images != null)
+                return View(model: id);
+            else return NotFound();
+        }
 
-                string fileName = Path.GetFileName(image.FileName);
-                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+        // GET: Images/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Images/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(IEnumerable<IFormFile> files)
+        {
+            if (ModelState.IsValid)
+            {
+                string wwwPath = _environment.WebRootPath;
+                string contentPath = this._environment.ContentRootPath;
+
+                string path = Path.Combine(this._environment.WebRootPath, "Images");
+                if (!Directory.Exists(path))
                 {
-                    image.CopyTo(stream);
-                    uploadedFiles.Add(fileName);
+                    Directory.CreateDirectory(path);
                 }
 
+                List<string> uploadedFiles = new List<string>();
+                foreach (IFormFile postedFile in files)
+                {
+                    string fileName = Path.GetFileName(postedFile.FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                        uploadedFiles.Add(fileName);
+                        ViewBag.Message += string.Format("<b>{0}</b> uploaded.<br />", fileName);
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-            return string.Join(", ", uploadedFiles);
-
+            return View(files.Select(t => t.Name));
         }
-        // DELETE: api/Images/id : string
-        [HttpDelete("{id}")]
-        [HeaderValidator(true)]
-        public async Task<IActionResult> DeleteImage(string id)
+
+        // GET: Images/Delete/5
+        public async Task<IActionResult> Delete(string? id)
         {
-            var findName = id.Replace("%2F", "/");
+            id = id.Replace("%2F", "/");
+            var findName = id.Split("/").Last();
+            string wwwPath = _environment.WebRootPath;
+            string contentPath = _environment.ContentRootPath;
+
+            string path = Path.Combine(_environment.WebRootPath, "Images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var files = Directory.EnumerateFiles(path);
+            var images = files.FirstOrDefault(t => t.Contains(findName));
+            if (images != null)
+                return View(model: id);
+            else return NotFound();
+        }
+
+        // POST: Images/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+
+            id = id.Replace("%2F", "/");
+            var findName = id.Split("/").Last();
             string wwwPath = _environment.WebRootPath;
             string contentPath = _environment.ContentRootPath;
 
@@ -104,10 +153,12 @@ namespace ArendApp.Api.Controllers
 
             System.IO.File.Delete(images);
 
-            if (images != null)
-                return Ok();
-            else
-                return NotFound();
+            return RedirectToAction(nameof(Index));
         }
+
+        //private bool ImageExists(int id)
+        //{
+        //    return _context.Images.Any(e => e.Id == id);
+        //}
     }
 }
