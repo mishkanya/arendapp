@@ -3,8 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{75BECD5A-E56D-4BB1-A73B-10BEF78C7347}|ArendApp\\ArendApp.Api.csproj|solutionrelative:arendapp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|ArendApp.App.Android||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app\\arendapp.app.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{FA4A25A8-66B6-443E-AEB1-6A9F04EA1CFB}|ArendApp.App\\ArendApp.App\\ArendApp.App.csproj|solutionrelative:arendapp.app\\arendapp.app\\arendapp.app.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D52171A-5F8A-475E-89AB-F23B7484569D}|ArendApp.App\\ArendApp.App.Android\\ArendApp.App.Android.csproj|c:\\users\\yakoo\\source\\repos\\arendapp\\arendapp.app\\arendapp.app.android\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|aab28e7c-f003-4519-9e1c-af7531e4cacf"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,15 +29,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ArendApp\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\arendapp\\ArendApp\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ArendApp\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAABUAAAAAAAAAAAAAACQAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-17T10:39:57.191Z",
+              "Title": "ArendApp.App.Android",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\ArendApp\\ArendApp.App\\ArendApp.App.Android\\ArendApp.App.Android.csproj",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App.Android\\ArendApp.App.Android.csproj",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\ArendApp\\ArendApp.App\\ArendApp.App.Android\\ArendApp.App.Android.csproj",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App.Android\\ArendApp.App.Android.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-03-25T16:16:03.321Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ArendApp.App",
+              "DocumentMoniker": "C:\\Users\\Yakoo\\source\\repos\\ArendApp\\ArendApp.App\\ArendApp.App\\ArendApp.App.csproj",
+              "RelativeDocumentMoniker": "ArendApp.App\\ArendApp.App\\ArendApp.App.csproj",
+              "ToolTip": "C:\\Users\\Yakoo\\source\\repos\\ArendApp\\ArendApp.App\\ArendApp.App\\ArendApp.App.csproj",
+              "RelativeToolTip": "ArendApp.App\\ArendApp.App\\ArendApp.App.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-03-25T16:14:04.784Z"
             }
           ]
         }
